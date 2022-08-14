@@ -8,6 +8,9 @@ function App() {
   const[list,setList] = React.useState([{}])
   const [clicked,setClicked]=React.useState(false)
 
+  var API_URL = "https://vast-depths-43868.herokuapp.com"
+  //var API_URL = "https://localhost:7004" 
+
     
     /* async function recieveData(){
       console.log('clicked')
@@ -26,7 +29,7 @@ function App() {
         
         setClicked(true)
           //const response = await fetch('https://vast-depths-43868.herokuapp.com/getData')
-          const response = await fetch('https://localhost:7004/getData')
+          const response = await fetch(API_URL+'/getData')
           const data = await response.json()
           //console.log(this.state)
           
