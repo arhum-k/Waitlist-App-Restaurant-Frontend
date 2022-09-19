@@ -1,15 +1,19 @@
-//import './App.css';
+import './App.css';
 import React from "react";
 import List from "./List";
 import Navbar from "./Navbar";
 
 function App() {
+  setTimeout(function(){
+    window.location.reload(1);
+ }, 10000);
+
 
   const[list,setList] = React.useState([{}])
   const [clicked,setClicked]=React.useState(false)
 
   var API_URL = "https://vast-depths-43868.herokuapp.com"
-  //var API_URL = "https://localhost:7004" 
+  //var API_URL = "http://localhost:7004" 
 
     
     /* async function recieveData(){
@@ -28,7 +32,7 @@ function App() {
       const fetchData = async () => {
         
         setClicked(true)
-          //const response = await fetch('https://vast-depths-43868.herokuapp.com/getData')
+
           const response = await fetch(API_URL+'/getData')
           const data = await response.json()
           //console.log(this.state)
@@ -55,6 +59,7 @@ function App() {
       <Navbar/>
        
       {/* <button type="button"  onClick={recieveData}>CLICK</button> */}
+      <div  className='listGroup'>
       {list.map((data)=>(
         <List
           name={data.fullName}
@@ -66,6 +71,7 @@ function App() {
           setClick={setClicked}
         />
       ))}
+      </div>
     </div>
   );
 }

@@ -3,6 +3,9 @@ import React from 'react'
 //import axios from 'axios'
 import "./List.css"
 
+var API_URL="https://vast-depths-43868.herokuapp.com"
+//var API_URL="http://localhost:7004"
+
 function List(props) {
     const [showGuest, setShowGuest]=React.useState(true)
     
@@ -14,8 +17,8 @@ async function clearGuest(id){
     
 
     //POSTs phone number (id) to backend using /delete
-    //const res = await fetch("https://vast-depths-43868.herokuapp.com/delete",
-    const res = await fetch("https://localhost:7004/delete",
+
+    const res = await fetch(API_URL+"/delete",
     {
             method: 'POST',
             headers: {
@@ -31,8 +34,7 @@ async function sendSMS(phoneNum){
     
 
     //POSTs phone number (id) to backend using /text
-    //const res = await fetch("https://vast-depths-43868.herokuapp.com/text",
-    const res = await fetch("https://localhost:7004/text",
+    const res = await fetch(API_URL+"/text",
         {
             method: 'POST',
             headers: {
@@ -55,35 +57,39 @@ function removeStrikeThrough(doc){
  
 
   return (
-    <>
+    <div className='ListBox'>
     <div key = {props.id} className="guestBlock" style={{ display: showGuest ? "block" : "none" }}>
         <div id={props.id} className='guestInfo'>
             <p><strong>Full Name:</strong> {props.name}</p>        
             <p><strong># of People: </strong>{props.numPeople}</p>        
             <p><strong>Phone Number:</strong> {props.phoneNum}</p> 
-        </div>       
+        </div>  
+        <div className='buttonGroup'>
         <button type='button' 
-            className='button'
+            
             onClick={()=>{clearGuest(props.id)}}
+            className='button'
             onMouseEnter={()=>{setStrikeThrough(document.getElementById(props.id))}}
             onMouseLeave={()=>{removeStrikeThrough(document.getElementById(props.id))}} 
-            style={{ display: props.click ? "block" : "none" }}
+            style={{ backgroundColor: "#bf0606",display: props.click ? "block" : "none" }}
             >
             Clear Guest
         </button>
         <button type='button' 
             className='button'
             onClick={()=>{sendSMS(props.phoneNum)}}
-            style={{ display: props.click ? "block" : "none" }}
+            style={{backgroundColor: "green", display: props.click ? "block" : "none" }}
             >
             Table Ready
         </button>
+        </div>  
   
     </div>
+
     <div style={{ display: showGuest ? "none" : "block" }}>
         <p>Guest Cleared</p>
     </div>
-    </>
+    </div>
   )
 
 }
